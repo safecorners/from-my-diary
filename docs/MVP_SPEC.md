@@ -12,6 +12,16 @@
 - 로컬 개발 환경에서 핵심 기능이 동작한다.
 - Vercel 배포 검증은 다음 단계에서 진행한다.
 
+## 현재 구현 상태
+
+- Vite + React + TypeScript + Tailwind 기반 MVP 앱이 `main`에 merge되어 있다.
+- Supabase Auth, Postgres, Storage 연동 코드는 구현되어 있다.
+- `supabase/schema.sql`에 `diary_entries` 테이블, RLS policy, `diary-photos` private bucket, Storage policy가 정리되어 있다.
+- `vercel.json`에 SPA refresh 대응 rewrite가 추가되어 있다.
+- 현재 checkout에서 로컬 의존성 설치, build, dev server 실행을 확인했다.
+- 로컬 브라우저에서 OAuth, 세션 복원, CRUD, 사진 업로드/교체/삭제 흐름을 확인했다.
+- 다음 작업은 Vercel 프로젝트 연결, 환경변수 등록, production redirect URL 등록, 배포 URL 검증이다.
+
 ## 기술 스택
 
 - Vite
@@ -46,6 +56,8 @@
 - 일기 1편당 사진은 최대 1장만 허용한다.
 - 사진은 Supabase Storage의 private bucket에 저장한다.
 - 사진 파일은 사용자별 경로 아래에 저장한다.
+- 사진 형식은 JPG, PNG, WebP, GIF만 허용한다.
+- 사진 용량은 최대 6MB로 제한한다.
 - 목록에서는 사진이 있는 일기에 썸네일을 표시한다.
 
 ## 화면 범위
@@ -103,6 +115,7 @@
 
 ## 다음 단계
 
-- Vercel 배포 URL에서 OAuth redirect와 SPA routing을 검증한다.
-- Vercel 환경변수와 production redirect URL을 등록한다.
-- 로컬 MVP 검증과 GitHub push가 끝나면 Codex가 Vercel 프로젝트 생성 또는 연결과 환경변수 등록을 진행한다.
+- Vercel 프로젝트를 `safecorners/from-my-diary` GitHub 저장소와 연결한다.
+- Vercel 환경변수 `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`를 등록한다.
+- Vercel production URL을 Supabase Auth redirect URL에 추가한다.
+- Vercel 배포 URL에서 GitHub OAuth, SPA routing, 세션 복원, CRUD, 사진 흐름을 검증한다.

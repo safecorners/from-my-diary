@@ -2,7 +2,7 @@
 
 ## 목적
 
-이 문서는 구현을 시작하기 전에 GitHub, Supabase, Vercel 연동 상태와 필요한 환경변수를 확인하기 위한 기준이다. 현재 단계의 성공 기준은 로컬 Vite dev server에서의 동작이며, Vercel 배포 검증은 다음 단계에서 진행한다.
+이 문서는 GitHub, Supabase, Vercel 연동 상태와 필요한 환경변수를 확인하기 위한 기준이다. 현재는 MVP 구현과 로컬 검증이 완료된 상태이며, 다음 성공 기준은 Vercel 배포 URL에서 OAuth, SPA routing, CRUD, 사진 기능을 검증하는 것이다.
 
 ## 현재 MCP 연결 상태
 
@@ -14,7 +14,7 @@
 | Supabase MCP | 확인됨 | 프로젝트 `codex-diary` 조회 성공, project ref `zzdxwwnoxxyietlvqaas` |
 | Vercel MCP | 확인됨 | 팀 `safecorners' projects` 조회 성공, 팀 ID `team_og2zTf4KeUfe306xn5nU7OYQ` |
 
-## 구현 전 확인 항목
+## 초기 연동 확인 항목
 
 - [x] Supabase MCP 재인증을 완료한다.
 - [x] 사용할 Supabase 프로젝트를 선택하거나 새 프로젝트를 만든다.
@@ -55,11 +55,21 @@ SUPABASE_SERVICE_ROLE_KEY=
 
 `service_role` 또는 secret key는 프론트엔드 앱에 넣지 않는다.
 
+## 현재 checkout 상태
+
+- [x] 로컬 `main`이 `origin/main`의 PR #1 merge commit까지 fast-forward되어 있다.
+- [x] Vite + React MVP 앱 소스가 로컬 checkout에 존재한다.
+- [x] `supabase/schema.sql`이 로컬 checkout에 존재한다.
+- [x] `vercel.json`이 로컬 checkout에 존재한다.
+- [x] `node_modules`가 설치되어 있다.
+- [x] `npm run build`가 성공한다.
+- [x] `npm run dev`에서 로컬 앱을 실행한다.
+
 ## GitHub 확인 항목
 
 - [x] GitHub MCP가 현재 세션에서 호출 가능하다.
 - [x] 인증 계정 `safecorners`를 조회했다.
-- [x] 구현 단계에서 저장소를 생성하거나 기존 저장소를 연결한다.
+- [x] GitHub 저장소 연결 대상을 확정했다.
 - [x] Vercel과 연결할 GitHub 저장소를 확정한다.
 
 현재 GitHub 저장소:
@@ -92,15 +102,15 @@ SUPABASE_SERVICE_ROLE_KEY=
 - [ ] 로컬 MVP 검증 후 Codex가 Vercel 프로젝트를 생성하거나 연결한다.
 - [ ] 로컬 MVP 검증 후 Codex가 Vercel 환경변수에 `VITE_SUPABASE_URL`을 등록한다.
 - [ ] 로컬 MVP 검증 후 Codex가 Vercel 환경변수에 `VITE_SUPABASE_PUBLISHABLE_KEY`를 등록한다.
-- [ ] 로컬 MVP 검증 후 Codex가 SPA refresh 대응 rewrite 설정을 추가한다.
+- [x] SPA refresh 대응 rewrite 설정이 루트 `vercel.json`에 추가되어 있다.
 - [ ] 배포 URL 확정 후 Supabase Auth redirect URL에 production URL을 등록한다.
 - [ ] 배포 후 Vercel URL의 OAuth callback 동작을 확인한다.
 
 Vercel 진행 순서:
 
-1. Vite + React 앱을 구현한다.
-2. 로컬에서 GitHub OAuth, 세션 복원, 일기 CRUD, 사진 업로드/교체/삭제를 검증한다.
-3. 코드를 `safecorners/from-my-diary`에 push한다.
+1. Vite + React 앱 구현은 완료되었다.
+2. 로컬 의존성 설치, build, dev server 실행은 완료되었다.
+3. 로컬에서 GitHub OAuth, 세션 복원, 일기 CRUD, 사진 업로드/교체/삭제 검증은 완료되었다.
 4. Codex가 Vercel 프로젝트를 생성하거나 GitHub 저장소와 연결한다.
 5. Codex가 Vercel 환경변수 2개를 등록한다.
 6. Vercel production URL을 Supabase Auth redirect URL에 추가한다.
@@ -108,12 +118,12 @@ Vercel 진행 순서:
 
 ## 구현 후 확인 항목
 
-- [ ] 로컬에서 GitHub OAuth 로그인에 성공한다.
-- [ ] 로그인 세션이 새로고침 후 복원된다.
-- [ ] 일기 작성, 조회, 수정, 삭제가 동작한다.
-- [ ] 사진 업로드, 교체, 삭제가 동작한다.
-- [ ] 다른 사용자의 일기 row를 조회할 수 없다.
-- [ ] 다른 사용자의 Storage object를 조회하거나 삭제할 수 없다.
+- [x] 로컬에서 GitHub OAuth 로그인에 성공한다.
+- [x] 로그인 세션이 새로고침 후 복원된다.
+- [x] 일기 작성, 조회, 수정, 삭제가 동작한다.
+- [x] 사진 업로드, 교체, 삭제가 동작한다.
+- [x] 다른 사용자의 일기 row를 조회할 수 없다.
+- [x] 다른 사용자의 Storage object를 조회하거나 삭제할 수 없다.
 - [x] 로컬 로그인 화면이 렌더링되고 GitHub login button이 활성화된다.
 
 ## 다음 단계 확인 항목
