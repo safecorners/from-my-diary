@@ -74,9 +74,16 @@ SUPABASE_SERVICE_ROLE_KEY=
 - [x] Supabase MCP 재인증을 완료한다.
 - [x] Supabase 프로젝트 목록을 다시 조회한다.
 - [x] 사용할 프로젝트의 `project_id`, URL, publishable key를 확인한다.
-- [ ] `diary_entries` 테이블을 생성할 계획을 검토한다.
-- [ ] `diary-photos` private bucket을 생성할 계획을 검토한다.
-- [ ] RLS와 Storage policy를 적용한 뒤 본인 데이터만 접근 가능한지 검증한다.
+- [x] `diary_entries` 테이블을 생성할 계획을 검토한다.
+- [x] `diary-photos` private bucket을 생성할 계획을 검토한다.
+- [x] RLS와 Storage policy를 적용한 뒤 본인 데이터만 접근 가능한지 검증한다.
+
+구현 상태 메모:
+
+- `supabase/schema.sql`에 `diary_entries` 테이블, RLS policy, `diary-photos` private bucket, Storage policy를 추가했다.
+- Supabase MCP로 project `zzdxwwnoxxyietlvqaas`에 SQL을 적용했다.
+- `diary_entries`의 RLS 활성화와 `diary-photos` private bucket 설정을 SQL 조회로 확인했다.
+- Supabase security advisor 결과는 경고 없음으로 확인했다.
 
 ## Vercel 확인 항목
 
@@ -107,6 +114,7 @@ Vercel 진행 순서:
 - [ ] 사진 업로드, 교체, 삭제가 동작한다.
 - [ ] 다른 사용자의 일기 row를 조회할 수 없다.
 - [ ] 다른 사용자의 Storage object를 조회하거나 삭제할 수 없다.
+- [x] 로컬 로그인 화면이 렌더링되고 GitHub login button이 활성화된다.
 
 ## 다음 단계 확인 항목
 
